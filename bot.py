@@ -45,4 +45,4 @@ while True:
     api.update_status(linha)
 
     #Espera 1h
-    time.sleep(600)
+    time.sleep(333600)
