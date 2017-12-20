@@ -27,16 +27,10 @@ while True:
     #Embaralha a lista.
     random.shuffle(letras)
     #Escolhe um arquivo aleatório.
-    x = randint(0, len(letras)-1)
+    i = randint(0, len(letras)-1)
 
-    #Arquivo selecionado
-    filename=open('./letras/'+letras[x],'r')
-    f=filename.readlines()
-    filename.close()
-    
     #Pegar um linha aleatória
-    num_lines = sum(1 for line in open('./letras/'+letras[x]))
-    line = random.choice(open('./letras/'+letras[x]).readlines())
+    linha = random.choice(open('./letras/'+letras[i]).readlines())
     
     # Credenciais Twitter
     CONSUMER_KEY = 'xxx'
@@ -48,7 +42,7 @@ while True:
     api = tweepy.API(auth)
 
     #Tweet
-    api.update_status(line)
+    api.update_status(linha)
 
     #Espera 1h
-    time.sleep(3600)
+    time.sleep(600)
