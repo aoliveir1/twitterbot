@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Twitter Bot:
+    TwitterBot:
         Robô que tuíta automaticamente trechos de músicas contidas em arquivos locais.
 '''
 
@@ -16,33 +16,32 @@ while True:
     #Lista de arquivos contendo letras das músicas.
     letras=[]   
     
-    #Percorre o diretório.
+    #Percorre o diretório local.
     for dirname, dirnames, filenames in os.walk('./letras/'):
-        #Pegar os nomes do arquivos.
+        #Laço para pegar os nomes do arquivos.
         for filename in filenames:
-            #Testa se é arquivo .txt, se for adiciona na lista.
-            if '.txt' in filename:
-                letras.append((os.path.join(filename)))
+            letras.append((os.path.join(filename)))
 
-    #Embaralha a lista.
-    random.shuffle(letras)
     #Escolhe um arquivo aleatório.
-    i = randint(0, len(letras)-1)
+    x=randint(0, len(letras)-1)
+    
+    #O arquivo ja deve estar nomeado sem a extensao .txt. 
+    hashtag='#'+letras[x]
 
-    #Pegar um linha aleatória
-    linha = random.choice(open('./letras/'+letras[i]).readlines())
+    #Pega um linha aleatória
+    line=random.choice(open('./letras/'+letras[x]).readlines())
     
     # Credenciais Twitter
-    CONSUMER_KEY = 'xxx'
-    CONSUMER_SECRET = 'xxx'
-    ACCESS_KEY = 'xxx'
-    ACCESS_SECRET = 'xxx'
+    CONSUMER_KEY = ''
+    CONSUMER_SECRET = ''
+    ACCESS_KEY = ''
+    ACCESS_SECRET = ''
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     api = tweepy.API(auth)
 
     #Tweet
-    api.update_status(linha)
+    api.update_status(hashtag+' '+line.lower()) 
 
     #Espera 1h
-    time.sleep(333600)
+    time.sleep(3600)
